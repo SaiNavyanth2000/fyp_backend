@@ -15,8 +15,8 @@ def ann_model(tick):
     print('ann model loading')
     response_object = {'status':'success'}
     today = date.today()
-    scaler_path = "../../data/normalizers/" + tick + "/ann_x.pkl"
-    model_path = "../../data/models/" + tick + "/ann"
+    scaler_path = "./data/normalizers/" + tick + "/ann_x.pkl"
+    model_path = "./data/models/" + tick + "/ann"
     if(os.path.exists(model_path)):
         model = load_model(model_path)
     if(os.path.exists(scaler_path)):

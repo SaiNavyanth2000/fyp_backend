@@ -16,10 +16,10 @@ def multi_lstm_model(tick):
     response_object = {'status':'success'}
     today = date.today()
     print('multi lstm model loading')
-    scaler_x_path = "../../data/normalizers/" + tick + "/multi_lstm_x.pkl"
-    scaler_y_path = "../../data/normalizers/" + tick + "/multi_lstm_y.pkl"
-    model_path = "../../data/models/" + tick + "/multi_lstm"
-    pca_path = "../../data/normalizers/" + tick + "/multi_lstm_pca.pkl"
+    scaler_x_path = "./data/normalizers/" + tick + "/multi_lstm_x.pkl"
+    scaler_y_path = "./data/normalizers/" + tick + "/multi_lstm_y.pkl"
+    model_path = "./data/models/" + tick + "/multi_lstm"
+    pca_path = "./data/normalizers/" + tick + "/multi_lstm_pca.pkl"
     if(os.path.exists(model_path)):
         model = load_model(model_path)
     if(os.path.exists(scaler_x_path)):

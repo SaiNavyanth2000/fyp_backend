@@ -12,8 +12,8 @@ import json
 def lstm_model(tick):
     response_object = {'status':'success'}
     today = date.today()
-    scaler_path = "../../data/normalizers/" + tick + "/lstm.pkl"
-    model_path = "../../data/models/" + tick + "/lstm"
+    scaler_path = "./data/normalizers/" + tick + "/lstm.pkl"
+    model_path = "./data/models/" + tick + "/lstm"
     if(os.path.exists(model_path)):
         model = load_model(model_path)
     if(os.path.exists(scaler_path)):
