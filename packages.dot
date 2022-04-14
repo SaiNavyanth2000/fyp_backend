@@ -1,0 +1,12 @@
+digraph "packages" {
+rankdir=BT
+charset="utf-8"
+"backend" [color="black", label="backend", shape="box", style="solid"];
+"backend.main" [color="black", label="backend.main", shape="box", style="solid"];
+"backend.model_ann" [color="black", label="backend.model_ann", shape="box", style="solid"];
+"backend.model_lstm" [color="black", label="backend.model_lstm", shape="box", style="solid"];
+"backend.model_multi_lstm" [color="black", label="backend.model_multi_lstm", shape="box", style="solid"];
+"backend.main" -> "backend.model_ann" [arrowhead="open", arrowtail="none"];
+"backend.main" -> "backend.model_lstm" [arrowhead="open", arrowtail="none"];
+"backend.main" -> "backend.model_multi_lstm" [arrowhead="open", arrowtail="none"];
+}
