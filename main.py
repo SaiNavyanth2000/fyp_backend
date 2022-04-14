@@ -1,8 +1,5 @@
 from flask import Flask, request,jsonify
 from flask_cors import CORS
-import pickle
-import os
-from firebase_admin import storage
 from matplotlib import pyplot as plt
 from pandas_datareader import data as pdr
 from datetime import date, timedelta
@@ -10,8 +7,6 @@ import yfinance as yf
 from keras.models import load_model
 import pandas as pd
 import numpy as np
-import json
-import firebase_admin
 import pandas_ta as ta
 from sklearn.preprocessing import MinMaxScaler
 from model_ann import ann_model
