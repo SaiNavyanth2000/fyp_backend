@@ -22,7 +22,7 @@ def ann_model(tick):
     if(os.path.exists(scaler_path)):
         with open(scaler_path, "rb") as input_file:
             scaler_x = pickle.load(input_file)
-    scaler_path = "../../data/normalizers/" + tick + "/ann_y.pkl"
+    scaler_path = "./data/normalizers/" + tick + "/ann_y.pkl"
     if(os.path.exists(scaler_path)):
         with open(scaler_path, "rb") as input_file:
             scaler_y = pickle.load(input_file)
