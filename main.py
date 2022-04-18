@@ -12,6 +12,7 @@ from sklearn.preprocessing import MinMaxScaler
 from model_ann import ann_model
 from model_lstm import lstm_model
 from model_multi_lstm import multi_lstm_model
+from model_combined import combined_model_get_signal
 import ast
 # from flask import current_app
 # current_app.config['SERVER_NAME'] = 'localhost'   
@@ -70,9 +71,12 @@ def submitData():
 
             return multi_lstm_model(tick)
         
-        #lstm for now
-        else:
- 
+        #combined model
+        elif model_type == 'Combined':
+            return combined_model_get_signal(tick)
+
+        #lstm
+        else: 
             return lstm_model(tick)       
 
 if __name__ == '__main__':
