@@ -12,6 +12,7 @@ import pandas_ta as ta
 from sklearn.preprocessing import MinMaxScaler
 
 def combined_model_get_signal(tick):
+    response_object = {}
     today = date.today()
     print('multi lstm model loading')
     scaler_x_path = "./data/normalizers/" + tick + "/combination_model1_X.pkl"
@@ -72,7 +73,7 @@ def combined_model_get_signal(tick):
     # date_today = '2022-04-13'
     print('got data till 7 days')
     # tick = 'GOOG'
-    df_sentiment = pd.read_csv(f'{today}_{tick}.csv')
+    df_sentiment = pd.read_csv(f'./{today}_{tick}.csv')
     df['Vander_Score']= list(df_sentiment['Score'])
     print('read sentiment score')
     features_x = ['H-L','O-C','5MA','10MA','20MA','7SD','RSI_14', 'EMA8','EMA21','EMA34','EMA55','Returns','Volume', 'Vander_Score']
@@ -85,10 +86,17 @@ def combined_model_get_signal(tick):
     test_data = np.asarray(scaled_data, np.float32)
     pred = model.predict(test_data)  
     prediction_value = scaler_y.inverse_transform(pred)
-    
-    
-    if(prediction_value > previous_closing_price):
-        return 'Buy'
+    signal = ''
+    print(prediction_value)
+    if(prediction_value[0][0] > previous_closing_price):
+        signal += 'Buy'
     else:
-        return 'Sell'
+        signal += 'Sell'
+
+    response_object['prediction_value'] = signal
+    response_object['past_100_days'] = storing_data
+    response_object['past_50_days'] = df.T.to_json()
+    response_object['tick'] = tick
+    response_object['message'] ='Got data!'
+    return jsonify(response_object)
 
