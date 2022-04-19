@@ -94,6 +94,8 @@ def combined_model_get_signal(tick):
     else:
         signal = 'Sell'
 
+    print(signal)
+
     response_object['prediction_value'] = signal
     response_object['past_100_days'] = storing_data
     response_object['past_50_days'] = df.T.to_json()
