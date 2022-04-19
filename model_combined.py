@@ -87,12 +87,12 @@ def combined_model_get_signal(tick):
     test_data = np.asarray(scaled_data, np.float32)
     pred = model.predict(test_data)  
     prediction_value = scaler_y.inverse_transform(pred)
-    signal = ''
+    # signal = ''
     print(prediction_value)
     if(prediction_value[0][0] > previous_closing_price):
-        signal += 'Buy'
+        signal = 'Buy'
     else:
-        signal += 'Sell'
+        signal = 'Sell'
 
     response_object['prediction_value'] = signal
     response_object['past_100_days'] = storing_data
