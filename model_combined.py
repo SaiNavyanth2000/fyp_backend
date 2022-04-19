@@ -35,6 +35,8 @@ def combined_model_get_signal(tick):
             pca = pickle.load(input_file)
 
     print('loaded models')
+    import glob
+    print(glob.glob("./*"))
 
     def getTestData(ticker, start): 
         data = pdr.get_data_yahoo(ticker, start=start, end=today)
