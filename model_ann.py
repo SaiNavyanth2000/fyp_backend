@@ -1,6 +1,7 @@
 import pickle
 from flask import Flask, request,jsonify
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from pandas_datareader import data as pdr
 from datetime import date, timedelta
 import yfinance as yf

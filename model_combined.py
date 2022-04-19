@@ -1,6 +1,7 @@
 import pickle
 from flask import Flask, request,jsonify
 import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from pandas_datareader import data as pdr
 from datetime import date, timedelta
 import yfinance as yf
@@ -14,7 +15,6 @@ from sklearn.preprocessing import MinMaxScaler
 def combined_model_get_signal(tick):
     response_object = {}
     today = date.today()
-    print('multi lstm model loading')
     scaler_x_path = "./data/normalizers/" + tick + "/combination_model1_X.pkl"
     scaler_y_path = "./data/normalizers/" + tick + "/combination_model1_Y.pkl"
     model_path = "./data/models/" + tick + "/combination_model1"
@@ -34,14 +34,12 @@ def combined_model_get_signal(tick):
         with open(pca_path, "rb") as input_file:
             pca = pickle.load(input_file)
 
-    print('loaded models')
-    import glob
-    print(glob.glob("./*"))
+
 
     def getTestData(ticker, start): 
         data = pdr.get_data_yahoo(ticker, start=start, end=today)
         # dataname= ticker+"_"+str(today)
-        return data[-350:-1]
+        return data[-100:-1]
                     
             
     start = today - timedelta(days=500)
@@ -77,7 +75,7 @@ def combined_model_get_signal(tick):
     # tick = 'GOOG'
     df_sentiment = pd.read_csv(f'./{today}_{tick}.csv')
     df['Vander_Score']= list(df_sentiment['Score'])
-    print('read sentiment score')
+   
     features_x = ['H-L','O-C','5MA','10MA','20MA','7SD','RSI_14', 'EMA8','EMA21','EMA34','EMA55','Returns','Volume', 'Vander_Score']
     scaled_x_data = scaler_x.transform(df[features_x])
 

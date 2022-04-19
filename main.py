@@ -33,7 +33,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/predict", methods=["POST","GET"])
 def submitData():
-    print('habbfhkd')
     response_object = {'status':'success'}
     if request.method == "POST":
         #get arguments from request url https://stackabuse.com/get-request-query-parameters-with-flask/
