@@ -34,8 +34,8 @@ def combined_model_get_signal(tick):
         with open(pca_path, "rb") as input_file:
             pca = pickle.load(input_file)
 
-    import glob
-    print(glob.glob("./*"))
+    # import glob
+    # print(glob.glob("./*"))
 
     def getTestData(ticker, start): 
         data = pdr.get_data_yahoo(ticker, start=start, end=today)
@@ -74,7 +74,7 @@ def combined_model_get_signal(tick):
     # date_today = '2022-04-13'
     print('got data till 7 days')
     # tick = 'GOOG'
-    df_sentiment = pd.read_csv(f'./{today}_{tick}.csv')
+    df_sentiment = pd.read_csv(f'./data/sentiment data/{today}_{tick}.csv')
     df['Vander_Score']= list(df_sentiment['Score'])
    
     features_x = ['H-L','O-C','5MA','10MA','20MA','7SD','RSI_14', 'EMA8','EMA21','EMA34','EMA55','Returns','Volume', 'Vander_Score']
