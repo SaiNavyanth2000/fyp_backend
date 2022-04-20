@@ -37,6 +37,7 @@ def submitData():
 
     response_object = {'status':'success'}
     if request.method == 'GET':
+        gc.collect()
         return 'got a invalid GET request'
 
     if request.method == "POST":
