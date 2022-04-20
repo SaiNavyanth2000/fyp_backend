@@ -14,6 +14,7 @@ from model_lstm import lstm_model
 from model_multi_lstm import multi_lstm_model
 from model_combined import combined_model_get_signal
 import ast
+import gc
 # from flask import current_app
 # current_app.config['SERVER_NAME'] = 'localhost'   
 # with current_app.test_request_context():
@@ -39,7 +40,8 @@ def submitData():
         form_data = request.data
         data =  form_data.decode("UTF-8")
         data_dict = ast.literal_eval(data)
-        print(data_dict)
+        print("No.of tracked objects before calling get method")
+        print(len( gc.get_objects() ) )
         tick   = data_dict['ticker']
         model_type = data_dict['model_type']
         # response_object['prediction_value'] = 150
@@ -63,20 +65,27 @@ def submitData():
         #custom ann
         if(model_type == 'ANN'):
 
-            return ann_model(tick)
+            response_object =  ann_model(tick)
         
         #multivariate lstm
         elif model_type == 'MultiLstm':
 
-            return multi_lstm_model(tick)
+            response_object = multi_lstm_model(tick)
         
         #combined model
         elif model_type == 'Combined':
-            return combined_model_get_signal(tick)
+            response_object =  combined_model_get_signal(tick)
 
         #lstm
         else: 
-            return lstm_model(tick)       
+            response_object = lstm_model(tick)   
+
+        print("No.of tracked objects after calling get method")
+     
+    # print the length of object list with len function.
+        print(len( gc.get_objects() ) )
+
+        return response_object    
 
 if __name__ == '__main__':
     app.run(debug=True)
