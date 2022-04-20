@@ -40,8 +40,7 @@ def submitData():
         form_data = request.data
         data =  form_data.decode("UTF-8")
         data_dict = ast.literal_eval(data)
-        print("No.of tracked objects before calling get method")
-        print(len( gc.get_objects() ) )
+   
         tick   = data_dict['ticker']
         model_type = data_dict['model_type']
         # response_object['prediction_value'] = 150
@@ -80,17 +79,11 @@ def submitData():
         else: 
             response_object = lstm_model(tick)   
 
-        print("No.of tracked objects after calling get method")
-     
-    # print the length of object list with len function.
-        print(len( gc.get_objects() ) )
 
-
-        print("No.of tracked objects after calling collect method")
-
+        # garbage collection https://www.geeksforgeeks.org/memory-leak-in-python-requests/
         gc.collect()
 
-        print(len( gc.get_objects() ) )
+     
 
         return response_object    
 
