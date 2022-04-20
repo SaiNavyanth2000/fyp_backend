@@ -36,8 +36,10 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def submitData():
 
     response_object = {'status':'success'}
+    if request.method == 'GET':
+        return 'got a invalid GET request'
 
-    if request.method:
+    if request.method == "POST":
         #get arguments from request url https://stackabuse.com/get-request-query-parameters-with-flask/
         try:
             form_data = request.data
