@@ -37,12 +37,16 @@ def submitData():
     response_object = {'status':'success'}
     if request.method == "POST":
         #get arguments from request url https://stackabuse.com/get-request-query-parameters-with-flask/
-        form_data = request.data
-        data =  form_data.decode("UTF-8")
-        data_dict = ast.literal_eval(data)
-   
-        tick   = data_dict['ticker']
-        model_type = data_dict['model_type']
+        try:
+            form_data = request.data
+            data =  form_data.decode("UTF-8")
+            data_dict = ast.literal_eval(data)
+    
+            tick   = data_dict['ticker']
+            model_type = data_dict['model_type']
+        except:
+            tick = 'AAPL'
+            model_type = 'lstm'
         # response_object['prediction_value'] = 150
 
         def getTestData(ticker, start):
