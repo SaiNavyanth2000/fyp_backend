@@ -85,6 +85,13 @@ def submitData():
     # print the length of object list with len function.
         print(len( gc.get_objects() ) )
 
+
+        print("No.of tracked objects after calling collect method")
+
+        gc.collect()
+
+        print(len( gc.get_objects() ) )
+
         return response_object    
 
 if __name__ == '__main__':
