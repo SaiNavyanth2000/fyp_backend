@@ -242,3 +242,6 @@ def get_sentiment():
     amazon_final_df = pd.DataFrame(average_vander_score,columns=['Score'])
     amazon_final_df.to_csv("./data/sentiment data/"+all_dates[-1] + "_AMZN.csv")
     print('amazon done')
+
+if __name__ =='__main__':
+    get_sentiment()

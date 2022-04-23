@@ -16,6 +16,10 @@ from model_combined import combined_model_get_signal
 from batch_file import get_sentiment
 import ast
 import gc
+from rq import Queue
+from worker import conn
+
+
 # from flask import current_app
 # current_app.config['SERVER_NAME'] = 'localhost'   
 # with current_app.test_request_context():
@@ -38,7 +42,11 @@ def submitData():
 
     response_object = {'status':'success'}
     if request.method == 'GET':
-        get_sentiment()
+        q = Queue(connection=conn)
+        def get_sentiment_call():
+            get_sentiment()
+
+        result = q.enqueue(get_sentiment_call)
         gc.collect()
         return 'got a invalid GET request'
 
