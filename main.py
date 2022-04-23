@@ -13,6 +13,7 @@ from model_ann import ann_model
 from model_lstm import lstm_model
 from model_multi_lstm import multi_lstm_model
 from model_combined import combined_model_get_signal
+from batch_file import get_sentiment
 import ast
 import gc
 # from flask import current_app
@@ -37,6 +38,7 @@ def submitData():
 
     response_object = {'status':'success'}
     if request.method == 'GET':
+        get_sentiment()
         gc.collect()
         return 'got a invalid GET request'
 
