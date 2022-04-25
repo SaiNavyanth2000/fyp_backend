@@ -4,17 +4,17 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from pandas_datareader import data as pdr
 from datetime import date, timedelta
-import yfinance as yf
 from keras.models import load_model
 import pandas as pd
 import numpy as np
 import json
 import pandas_ta as ta
-from sklearn.preprocessing import MinMaxScaler
 
 def combined_model_get_signal(tick):
+
     response_object = {}
     today = date.today()
+
     scaler_x_path = "./data/normalizers/" + tick + "/combination_model1_X.pkl"
     scaler_y_path = "./data/normalizers/" + tick + "/combination_model1_Y.pkl"
     model_path = "./data/models/" + tick + "/combination_model1"
@@ -30,12 +30,11 @@ def combined_model_get_signal(tick):
     if(os.path.exists(scaler_y_path)):
         with open(scaler_y_path, "rb") as input_file:
             scaler_y = pickle.load(input_file)
+
     if(os.path.exists(pca_path)):
         with open(pca_path, "rb") as input_file:
             pca = pickle.load(input_file)
 
-    # import glob
-    # print(glob.glob("./*"))
 
     def getTestData(ticker, start): 
         data = pdr.get_data_yahoo(ticker, start=start, end=today)
@@ -71,9 +70,8 @@ def combined_model_get_signal(tick):
 
     df = df[-7:]
 
-    # date_today = '2022-04-13'
     print('got data till 7 days')
-    # tick = 'GOOG'
+ 
     df_sentiment = pd.read_csv(f'./data/sentiment data/{today}_{tick}.csv')
     df['Vander_Score']= list(df_sentiment['Score'])
    
@@ -87,19 +85,18 @@ def combined_model_get_signal(tick):
     test_data = np.asarray(scaled_data, np.float32)
     pred = model.predict(test_data)  
     prediction_value = scaler_y.inverse_transform(pred)
-    # signal = ''
-    print(prediction_value)
+
     if(prediction_value[0][0] > previous_closing_price):
         signal = 'Buy'
     else:
         signal = 'Sell'
 
-    print(signal)
 
     response_object['prediction_value'] = signal
     response_object['past_100_days'] = storing_data
     response_object['past_50_days'] = df.T.to_json()
     response_object['tick'] = tick
     response_object['message'] ='Got data!'
+
     return jsonify(response_object)
 

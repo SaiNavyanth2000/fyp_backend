@@ -4,19 +4,21 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from pandas_datareader import data as pdr
 from datetime import date, timedelta
-import yfinance as yf
 from keras.models import load_model
-import pandas as pd
 import numpy as np
 import json
 
 def lstm_model(tick):
+
     response_object = {'status':'success'}
     today = date.today()
+
     scaler_path = "./data/normalizers/" + tick + "/lstm.pkl"
     model_path = "./data/models/" + tick + "/lstm"
+
     if(os.path.exists(model_path)):
         model = load_model(model_path)
+        
     if(os.path.exists(scaler_path)):
         with open(scaler_path, "rb") as input_file:
             scaler = pickle.load(input_file)
@@ -49,4 +51,5 @@ def lstm_model(tick):
     response_object['past_100_days'] = storing_data
     response_object['tick'] = tick     
     response_object['message'] ='Got data!'
+
     return jsonify(response_object)

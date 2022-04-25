@@ -1,4 +1,4 @@
-#code written by teammate
+#this code is written by teammate
 import snscrape.modules.twitter as sntwitter
 import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
